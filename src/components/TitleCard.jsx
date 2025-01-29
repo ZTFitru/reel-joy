@@ -67,6 +67,14 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
     }
   }, [movieInput, upcomingMovies]);
 
+  const handleMovieClick = (movie)=> {
+    setHighLightedMovie(movie)
+    const highlightedSection = document.getElementById('highlight')
+    if (highlightedSection) {
+        highlightedSection.scrollIntoView({ behavior: 'smooth'})
+    }
+  }
+
   return (
     <div className="bg-gray-900 text-white min-h-screen">
       {error && (
@@ -77,7 +85,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
 
       {/* highlighted movie here */}
       {highlightedMovie && (
-        <div
+        <div id='highlight'
           className="relative bg-cover bg-center h-[75vh] flex items-center"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/w500${highlightedMovie.backdrop_path})`,
@@ -110,7 +118,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
       )}
 
       {/* now playing movies */}
-      <div className="container mx-auto px-8 lg:px-16 mt-8">
+      <div id='now-playing' className="container mx-auto px-8 lg:px-16 mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <h2 className="text-2xl font-bold">Now Playing</h2>
           <input
@@ -166,7 +174,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
       </div>
 
       {/* top rated movies */}
-      <div className="container mx-auto px-8 lg:px-16 mt-8">
+      <div id='top-rated' className="container mx-auto px-8 lg:px-16 mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <h2 className="text-2xl font-bold">Top Rated</h2>
         </div>
@@ -216,9 +224,9 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
       </div>
 
       {/* upcoming movies */}
-      <div className="container mx-auto px-8 lg:px-16 mt-8">
+      <div id='upcoming' className="container mx-auto px-8 lg:px-16 mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between">
-          <h2 className="text-2xl font-bold">Top Rated</h2>
+          <h2 className="text-2xl font-bold">Upcoming</h2>
         </div>
 
         <div className="relative">
@@ -242,7 +250,13 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                  onMovieClick={setHighLightedMovie}
+                  onMovieClick={handleMovieClick}
+                //   onMovieClick={setHighLightedMovie}
+                // onMovieClick={(movie)=> {
+                //     setHighLightedMovie(movie)
+                //     document.getElementById('highlight').scrollIntoView({ behavior: 'smooth'})
+                // }}
+
                 />
               ))
             ) : (
