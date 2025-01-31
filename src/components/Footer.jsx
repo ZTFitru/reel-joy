@@ -1,19 +1,15 @@
-import React from 'react'
+import React from "react";
 import { FcFilmReel } from "react-icons/fc";
 
 const Footer = () => {
   return (
-    <div>
-      <footer className="fixed left-0 w-full bg-transparent backdrop-blur-md">
-        <div className="container mx-auto flex px-8 lg:px-16 py-4">
-          <div className="text-2xl font-bold">
-            <FcFilmReel />
-          </div>
-          <h2>HI</h2>
-        </div>
-      </footer>
-    </div>
-  )
-}
+    <footer className="fixed bottom-0 left-0 w-full bg-transparent backdrop-blur-md py-4">
+      <div className="container mx-auto flex justify-center items-center text-white text-lg">
+        <FcFilmReel className="text-2xl mr-2" />
+        <p>&copy; {new Date().getFullYear()} Movie App. All Rights Reserved.</p>
+      </div>
+    </footer>
+  );
+};
 
-export default Footer
+export default Footer;

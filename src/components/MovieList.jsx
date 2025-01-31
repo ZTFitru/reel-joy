@@ -38,21 +38,6 @@ const MovieList = ({ genres }) => {
         </button>
       </div>
 
-      {/* <div className="hidden md:flex gap-2 px-2 overflow-x-auto scrollbar-hide">
-          {genres.map((genre) => (
-            <div
-              key={genre.id}
-              onClick={() => setSelectedGenre(genre.id)}
-              className={`flex-shrink-0 px-4 py-2 rounded-lg shadow-md cursor-pointer text-center ${
-                selectedGenre === genre.id
-                  ? "bg-gray-700"
-                  : "bg-blue-400 hover:bg-blue-500"
-              } transition-colors`}
-            >
-              {genre.name}
-            </div>
-          ))}
-        </div> */}
       <div className="hidden md:flex gap-4 px-2 overflow-x-auto scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-600 scrollbar-rounded-lg">
         {genres.map((genre) => (
           <div

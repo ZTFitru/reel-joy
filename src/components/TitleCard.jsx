@@ -87,44 +87,22 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
       {highlightedMovie && (
         <div
           id="highlight"
-          className="relative bg-cover bg-center h-[75vh] flex items-center"
+          className="relative bg-cover bg-center h-[80vh] flex items-center"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/w500${highlightedMovie.backdrop_path})`,
             backgroundPosition: "top center",
           }}
         >
-          {/* <div className="container mx-auto px-8 lg:px-16">
-            <h1 className="text-4xl font-bold">{highlightedMovie.title}</h1>
-            <p className="mt-4 text-lg smallText max-w-lg">
-              {highlightedMovie.overview}
-            </p>
-            <div className="mt-6 flex gap-4">
-              <Link
-                to={`/movies/${highlightedMovie.id}/videos`}
-                className="bg-white text-gray-900 px-6 py-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-gray-200 hover:text-gray-700 transition-all duration-200"
-              >
-                Trailers
-                <FaPlay />
-              </Link>
-              <Link
-                to={`/movies/${highlightedMovie.id}`}
-                className="bg-gray-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-gray-600 hover:text-yellow-400 transition-all duration-200"
-              >
-                Details
-                <IoInformationOutline />
-              </Link>
-            </div>
-          </div> */}
           <div className="relative container mx-auto px-8 lg:px-16">
-            <div className="absolute inset-0 bg-black opacity-40 z-0"></div>{" "}
+            <div className="absolute inset-0 bg-black opacity-45 z-0"></div>{" "}
             <div className="relative z-10">
-              <h1 className="text-4xl font-bold text-white">
+              <h1 className="text-4xl font-bold text-white mt-8 sm:mt-0">
                 {highlightedMovie.title}
               </h1>
-              <p className="mt-4 text-lg text-white max-w-lg leading-relaxed">
+              <p className="text-lg text-white max-w-lg leading-relaxed">
                 {highlightedMovie.overview}
               </p>
-              <div className="mt-6 flex gap-4">
+              <div className="mt-2 flex gap-4">
                 <Link
                   to={`/movies/${highlightedMovie.id}/videos`}
                   className="bg-white text-gray-900 px-6 py-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-gray-200 hover:text-blue-700 transition-all duration-200"
@@ -178,7 +156,6 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                  //   onMovieClick={setHighLightedMovie}
                   onMovieClick={handleMovieClick}
                 />
               ))
@@ -229,7 +206,6 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                  //   onMovieClick={setHighLightedMovie}
                   onMovieClick={handleMovieClick}
                 />
               ))
@@ -281,11 +257,6 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                   movie={movie}
                   key={movie.id}
                   onMovieClick={handleMovieClick}
-                  //   onMovieClick={setHighLightedMovie}
-                  // onMovieClick={(movie)=> {
-                  //     setHighLightedMovie(movie)
-                  //     document.getElementById('highlight').scrollIntoView({ behavior: 'smooth'})
-                  // }}
                 />
               ))
             ) : (

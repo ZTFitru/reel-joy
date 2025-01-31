@@ -45,9 +45,6 @@ const DetailCard = () => {
   }, [myList])
 
   const handleAdd = (movie)=> {
-    // const existingList = JSON.parse(localStorage.getItem('myMovie')) || []
-    // const updatedList = [...existingList, movie]
-    // localStorage.setItem('myMovie', JSON.stringify(updatedList))
     const isMovieInList = myList.some((film) => film.id === movie.id)
     if(isMovieInList) {
         const updatedList = myList.filter((film)=> film.id !== movie.id)
@@ -90,7 +87,6 @@ const DetailCard = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-black/60 rounded-lg"></div>
           <div className="relative text-white space-y-4 py-20 sm:py-10 md:py-20 px-6 bg-gray-900/80 rounded-lg shadow-lg">
-            {/* <IoIosAddCircleOutline className="cursor-pointer"/> */}
             <h1 className="text-3xl font-bold flex items-center">
                 {clickedMovie.title}
                 {myList.some((film)=> film.id === clickedMovie.id) ? (
@@ -104,10 +100,6 @@ const DetailCard = () => {
                         onClick={()=> handleAdd(clickedMovie)}
                     />
                 )}
-                {/* <IoIosAddCircleOutline 
-                    className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors" 
-                    onClick={()=> handleAdd(clickedMovie)}
-                /> */}
             </h1>
             <p className="text-lg">
               <span className="font-semibold">Rating: </span>
@@ -127,7 +119,6 @@ const DetailCard = () => {
             </p>
             <p className="text-lg">
               <span className="font-semibold">Runtime: </span>
-              {/* {clickedMovie.runtime} mins */}
               {(()=> {
                 const {hours, minutes} = convertRuntime(clickedMovie.runtime)
                 return `${hours > 0 ? `${hours} hr` : ''} ${minutes} min`

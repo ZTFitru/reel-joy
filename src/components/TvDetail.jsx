@@ -35,9 +35,6 @@ const TvDetail = () => {
   }, [myList])
 
   const handleAdd = (movie)=> {
-    // const existingList = JSON.parse(localStorage.getItem('myMovie')) || []
-    // const updatedList = [...existingList, movie]
-    // localStorage.setItem('myMovie', JSON.stringify(updatedList))
     const isMovieInList = myList.some((film) => film.id === movie.id)
     if(isMovieInList) {
         const updatedList = myList.filter((film)=> film.id !== movie.id)
@@ -86,12 +83,12 @@ const TvDetail = () => {
                 {clickedTv.name}
                 {myList.some((film)=> film.id === clickedTv.id) ? (
                     <IoIosRemoveCircleOutline
-                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        className="ml-2 text-2xl cursor-pointer text-red-400 hover:text-blue-400 transition-colors"
                         onClick={()=> handleAdd(clickedTv)}
                     />
                 ) : (
                     <IoIosAddCircleOutline 
-                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        className="ml-2 text-2xl cursor-pointer text-green-400 hover:text-blue-400 transition-colors"
                         onClick={()=> handleAdd(clickedTv)}
                     />
                 )}
