@@ -67,13 +67,13 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
     }
   }, [movieInput, upcomingMovies]);
 
-  const handleMovieClick = (movie)=> {
-    setHighLightedMovie(movie)
-    const highlightedSection = document.getElementById('highlight')
+  const handleMovieClick = (movie) => {
+    setHighLightedMovie(movie);
+    const highlightedSection = document.getElementById("highlight");
     if (highlightedSection) {
-        highlightedSection.scrollIntoView({ behavior: 'smooth'})
+      highlightedSection.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div className="bg-gray-900 text-white min-h-screen">
@@ -85,14 +85,15 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
 
       {/* highlighted movie here */}
       {highlightedMovie && (
-        <div id='highlight'
+        <div
+          id="highlight"
           className="relative bg-cover bg-center h-[75vh] flex items-center"
           style={{
             backgroundImage: `url(https://image.tmdb.org/t/p/w500${highlightedMovie.backdrop_path})`,
             backgroundPosition: "top center",
           }}
         >
-          <div className="container mx-auto px-8 lg:px-16">
+          {/* <div className="container mx-auto px-8 lg:px-16">
             <h1 className="text-4xl font-bold">{highlightedMovie.title}</h1>
             <p className="mt-4 text-lg smallText max-w-lg">
               {highlightedMovie.overview}
@@ -113,12 +114,39 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <IoInformationOutline />
               </Link>
             </div>
+          </div> */}
+          <div className="relative container mx-auto px-8 lg:px-16">
+            <div className="absolute inset-0 bg-black opacity-40 z-0"></div>{" "}
+            <div className="relative z-10">
+              <h1 className="text-4xl font-bold text-white">
+                {highlightedMovie.title}
+              </h1>
+              <p className="mt-4 text-lg text-white max-w-lg leading-relaxed">
+                {highlightedMovie.overview}
+              </p>
+              <div className="mt-6 flex gap-4">
+                <Link
+                  to={`/movies/${highlightedMovie.id}/videos`}
+                  className="bg-white text-gray-900 px-6 py-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-gray-200 hover:text-blue-700 transition-all duration-200"
+                >
+                  Trailers
+                  <FaPlay />
+                </Link>
+                <Link
+                  to={`/movies/${highlightedMovie.id}`}
+                  className="bg-gray-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 hover:bg-gray-600 hover:text-blue-400 transition-all duration-200"
+                >
+                  Details
+                  <IoInformationOutline />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       )}
 
       {/* now playing movies */}
-      <div id='now-playing' className="container mx-auto px-8 lg:px-16 mt-8">
+      <div id="now-playing" className="container mx-auto px-8 lg:px-16 mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <h2 className="text-2xl font-bold">Now Playing</h2>
           <input
@@ -150,8 +178,8 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                //   onMovieClick={setHighLightedMovie}
-                onMovieClick={handleMovieClick}
+                  //   onMovieClick={setHighLightedMovie}
+                  onMovieClick={handleMovieClick}
                 />
               ))
             ) : (
@@ -175,7 +203,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
       </div>
 
       {/* top rated movies */}
-      <div id='top-rated' className="container mx-auto px-8 lg:px-16 mt-8">
+      <div id="top-rated" className="container mx-auto px-8 lg:px-16 mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <h2 className="text-2xl font-bold">Top Rated</h2>
         </div>
@@ -201,8 +229,8 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                //   onMovieClick={setHighLightedMovie}
-                onMovieClick={handleMovieClick}
+                  //   onMovieClick={setHighLightedMovie}
+                  onMovieClick={handleMovieClick}
                 />
               ))
             ) : (
@@ -226,7 +254,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
       </div>
 
       {/* upcoming movies */}
-      <div id='upcoming' className="container mx-auto px-8 lg:px-16 mt-8">
+      <div id="upcoming" className="container mx-auto px-8 lg:px-16 mt-8">
         <div className="flex flex-col md:flex-row md:items-center justify-between">
           <h2 className="text-2xl font-bold">Upcoming</h2>
         </div>
@@ -253,12 +281,11 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                   movie={movie}
                   key={movie.id}
                   onMovieClick={handleMovieClick}
-                //   onMovieClick={setHighLightedMovie}
-                // onMovieClick={(movie)=> {
-                //     setHighLightedMovie(movie)
-                //     document.getElementById('highlight').scrollIntoView({ behavior: 'smooth'})
-                // }}
-
+                  //   onMovieClick={setHighLightedMovie}
+                  // onMovieClick={(movie)=> {
+                  //     setHighLightedMovie(movie)
+                  //     document.getElementById('highlight').scrollIntoView({ behavior: 'smooth'})
+                  // }}
                 />
               ))
             ) : (
