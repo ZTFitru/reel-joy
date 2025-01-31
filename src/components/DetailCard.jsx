@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { CiHeart } from "react-icons/ci";
+import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DetailCard = () => {
   const { id } = useParams();
   const [clickedMovie, setClickedMovie] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [myList, setMyList] = useState(()=> {
+    const savedMovies = localStorage.getItem('myMovie')
+    return savedMovies ? JSON.parse(savedMovies) : []
+  })
 
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, {
@@ -27,6 +33,30 @@ const DetailCard = () => {
   const showVideo = () => {
     navigate(`/movies/${id}/videos`);
   };
+
+  const convertRuntime = (runtime) => {
+    const hours = Math.floor(runtime / 60); 
+    const minutes = runtime % 60; 
+    return { hours, minutes };
+  };
+
+  useEffect(()=> {
+    localStorage.setItem('myMovie', JSON.stringify(myList))
+  }, [myList])
+
+  const handleAdd = (movie)=> {
+    const isMovieInList = myList.some((film) => film.id === movie.id)
+    if(isMovieInList) {
+        const updatedList = myList.filter((film)=> film.id !== movie.id)
+        setMyList(updatedList)
+        toast.success(`${movie.title} removed from My List`)
+    } else {
+        const updatedList = [...myList, movie]
+        setMyList(updatedList)
+        toast.success(`${movie.title} added to My List`)
+    }
+  }
+  
 
   if (error) {
     return <p>{error}</p>;
@@ -54,41 +84,64 @@ const DetailCard = () => {
           />
         </div>
 
-        <div className="text-white space-y-4 py-20 sm:py-10 md:py-20">
-          <h2 className="text-3xl font-bold">{clickedMovie.title}</h2>
-          <p className="text-lg">
-            <span className="font-semibold">Rating: </span>
-            {clickedMovie.vote_average}
-          </p>
-          <p className="text-lg">
-            <span className="font-semibold">Overview: </span>
-            {clickedMovie.overview}
-          </p>
-          <p className="text-lg">
-            <span className="font-semibold">Genre: </span>
-            {clickedMovie.genres.map((genre) => genre.name).join(", ")}
-          </p>
-          <p className="text-lg">
-            <span className="font-semibold">Release Date: </span>
-            {clickedMovie.release_date}
-          </p>
-          <p className="text-lg">
-            <span className="font-semibold">Runtime: </span>
-            {clickedMovie.runtime} mins
-          </p>
-          {clickedMovie.tagline && (
-            <p className="italic text-lg text-gray-300">
-              "{clickedMovie.tagline}"
+        <div className="relative">
+          <div className="absolute inset-0 bg-black/60 rounded-lg"></div>
+          <div className="relative text-white space-y-4 py-20 sm:py-10 md:py-20 px-6 bg-gray-900/80 rounded-lg shadow-lg">
+            <h1 className="text-3xl font-bold flex items-center">
+                {clickedMovie.title}
+                {myList.some((film)=> film.id === clickedMovie.id) ? (
+                    <IoIosRemoveCircleOutline
+                        className="ml-2 text-2xl cursor-pointer text-red-400 hover:text-blue-400 transition-colors"
+                        onClick={()=> handleAdd(clickedMovie)}
+                    />
+                ) : (
+                    <IoIosAddCircleOutline 
+                        className="ml-2 text-2xl cursor-pointer text-green-400 hover:text-blue-400 transition-colors"
+                        onClick={()=> handleAdd(clickedMovie)}
+                    />
+                )}
+            </h1>
+            <p className="text-lg">
+              <span className="font-semibold">Rating: </span>
+              {clickedMovie.vote_average} ⭐️
             </p>
-          )}
-          <div className="mt-6">
-            <Link
-              to={`/movies/${clickedMovie.id}/videos`}
-              onClick={showVideo}
-              className="mt-8 px-6 py-2 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 transition-colors"
-            >
-              Trailers & Clips
-            </Link>
+            <p className="text-lg">
+              <span className="font-semibold">Overview: </span>
+              {clickedMovie.overview}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Genre: </span>
+              {clickedMovie.genres.map((genre) => genre.name).join(", ")}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Release Date: </span>
+              {clickedMovie.release_date}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Runtime: </span>
+              {(()=> {
+                const {hours, minutes} = convertRuntime(clickedMovie.runtime)
+                return `${hours > 0 ? `${hours} hr` : ''} ${minutes} min`
+              })()}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Status: </span>
+              {clickedMovie.status}
+            </p>
+            {clickedMovie.tagline && (
+              <h2 className="italic text-lg text-gray-300">
+                "{clickedMovie.tagline}"
+              </h2>
+            )}
+            <div className="mt-6">
+              <Link
+                to={`/movies/${clickedMovie.id}/videos`}
+                onClick={showVideo}
+                className="mt-8 px-6 py-2 bg-gray-700 text-white font-semibold rounded-lg shadow-md hover:bg-blue-500 transition-colors"
+              >
+                Trailers & Clips
+              </Link>
+            </div>
           </div>
         </div>
       </div>
