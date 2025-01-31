@@ -22,7 +22,7 @@ const MyList = () => {
     <div className="bg-gray-900 px-4 py-20 text-white min-h-screen">
         <h2 className="text-2xl px-2 font-bold text-white mb-10">My List</h2>
             {userList.length === 0 ? (
-                <p className="text-gray-400 mt-4">No movies added yet.</p>
+                <p className="text-gray-400 mt-4">No Movies or Tv added yet.</p>
             ) : (
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                     {userList.map((movie) => (
@@ -32,7 +32,6 @@ const MyList = () => {
                                 alt={movie.title} 
                                 className="rounded-md"
                             />
-                            <h3 className="mt-2 font-semibold">{movie.title}</h3>
                             
                             <button 
                                 className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full cursor-pointer"
