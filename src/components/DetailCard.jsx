@@ -28,6 +28,13 @@ const DetailCard = () => {
     navigate(`/movies/${id}/videos`);
   };
 
+  const convertRuntime = (runtime) => {
+    const hours = Math.floor(runtime / 60); 
+    const minutes = runtime % 60; 
+    return { hours, minutes };
+  };
+  
+
   if (error) {
     return <p>{error}</p>;
   }
@@ -57,11 +64,15 @@ const DetailCard = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-black/60 rounded-lg"></div>
           <div className="relative text-white space-y-4 py-20 sm:py-10 md:py-20 px-6 bg-gray-900/80 rounded-lg shadow-lg">
-            <IoIosAddCircleOutline />
-            <h1 className="text-3xl font-bold">{clickedMovie.title}</h1>
+            {/* <IoIosAddCircleOutline className="cursor-pointer"/> */}
+            <h1 className="text-3xl font-bold flex items-center">
+                {clickedMovie.title}
+                {/* <IoIosAddCircleOutline className="ml-2 cursor-pointer text-2xl hover:text-blue-400 transition-colors" /> */}
+                <IoIosAddCircleOutline className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors" />
+            </h1>
             <p className="text-lg">
               <span className="font-semibold">Rating: </span>
-              {clickedMovie.vote_average}
+              {clickedMovie.vote_average} ⭐️
             </p>
             <p className="text-lg">
               <span className="font-semibold">Overview: </span>
@@ -77,7 +88,15 @@ const DetailCard = () => {
             </p>
             <p className="text-lg">
               <span className="font-semibold">Runtime: </span>
-              {clickedMovie.runtime} mins
+              {/* {clickedMovie.runtime} mins */}
+              {(()=> {
+                const {hours, minutes} = convertRuntime(clickedMovie.runtime)
+                return `${hours > 0 ? `${hours} hr` : ''} ${minutes} min`
+              })()}
+            </p>
+            <p className="text-lg">
+              <span className="font-semibold">Status: </span>
+              {clickedMovie.status}
             </p>
             {clickedMovie.tagline && (
               <h2 className="italic text-lg text-gray-300">
