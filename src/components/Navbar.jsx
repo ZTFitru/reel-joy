@@ -21,7 +21,7 @@ const Navbar = () => {
               <Link to='/tv'>TV</Link>
             </li>
             <li className="hover:text-blue-500 transition-colors cursor-pointer">
-              My List
+              <Link to='/myList'>My List</Link>
             </li>
           </ul>
         </div>

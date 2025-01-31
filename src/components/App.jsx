@@ -9,6 +9,8 @@ import VideoCard from "./VideoCard";
 import TvList from "./TvList";
 import TvDetail from "./TvDetail";
 import TvVideoCard from "./TvVideoCard";
+import MyList from "./MyList";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [apiMovies, setApiMovies] = useState([]);
@@ -107,6 +109,7 @@ const App = () => {
   return (
     <>
       <Navbar />
+        <ToastContainer position="top-right" autoClose={2000} />
       <Routes>
         <Route path='/' element={<TitlePage apiMovies={apiMovies} error={error} popularMovies={popularMovies} upcomingMovies={upcomingMovies} /> } />
         <Route path="/movies" element={<MovieList genres={genres} />} />
@@ -115,6 +118,7 @@ const App = () => {
         <Route path="/tv/:id" element={<TvDetail />} />
         <Route path="/movies/:movie_id/videos" element={<VideoCard />} />
         <Route path="/tv/:tv_id/videos" element={<TvVideoCard />} />
+        <Route path='/myList' element={<MyList />} />
       </Routes>
       <Footer />
     </>

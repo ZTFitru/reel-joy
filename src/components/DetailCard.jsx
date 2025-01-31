@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DetailCard = () => {
   const { id } = useParams();
   const [clickedMovie, setClickedMovie] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [myList, setMyList] = useState(()=> {
+    const savedMovies = localStorage.getItem('myMovie')
+    return savedMovies ? JSON.parse(savedMovies) : []
+  })
 
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/movie/${id}?language=en-US`, {
@@ -33,6 +39,26 @@ const DetailCard = () => {
     const minutes = runtime % 60; 
     return { hours, minutes };
   };
+
+  useEffect(()=> {
+    localStorage.setItem('myMovie', JSON.stringify(myList))
+  }, [myList])
+
+  const handleAdd = (movie)=> {
+    // const existingList = JSON.parse(localStorage.getItem('myMovie')) || []
+    // const updatedList = [...existingList, movie]
+    // localStorage.setItem('myMovie', JSON.stringify(updatedList))
+    const isMovieInList = myList.some((film) => film.id === movie.id)
+    if(isMovieInList) {
+        const updatedList = myList.filter((film)=> film.id !== movie.id)
+        setMyList(updatedList)
+        toast.success(`${movie.title} removed from My List`)
+    } else {
+        const updatedList = [...myList, movie]
+        setMyList(updatedList)
+        toast.success(`${movie.title} added to My List`)
+    }
+  }
   
 
   if (error) {
@@ -67,8 +93,21 @@ const DetailCard = () => {
             {/* <IoIosAddCircleOutline className="cursor-pointer"/> */}
             <h1 className="text-3xl font-bold flex items-center">
                 {clickedMovie.title}
-                {/* <IoIosAddCircleOutline className="ml-2 cursor-pointer text-2xl hover:text-blue-400 transition-colors" /> */}
-                <IoIosAddCircleOutline className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors" />
+                {myList.some((film)=> film.id === clickedMovie.id) ? (
+                    <IoIosRemoveCircleOutline
+                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        onClick={()=> handleAdd(clickedMovie)}
+                    />
+                ) : (
+                    <IoIosAddCircleOutline 
+                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        onClick={()=> handleAdd(clickedMovie)}
+                    />
+                )}
+                {/* <IoIosAddCircleOutline 
+                    className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors" 
+                    onClick={()=> handleAdd(clickedMovie)}
+                /> */}
             </h1>
             <p className="text-lg">
               <span className="font-semibold">Rating: </span>

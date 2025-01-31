@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline, IoIosRemoveCircleOutline } from "react-icons/io";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TvDetail = () => {
   const { id } = useParams();
   const [clickedTv, setClickedTv] = useState(null);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [myList, setMyList] = useState(()=> {
+    const savedMovies = localStorage.getItem('myMovie')
+    return savedMovies ? JSON.parse(savedMovies) : []
+  })
 
   useEffect(() => {
     fetch(`https://api.themoviedb.org/3/tv/${id}?language=en-US`, {
@@ -23,6 +29,26 @@ const TvDetail = () => {
       .then((data) => setClickedTv(data))
       .catch((err) => setError(err.message));
   }, [id]);
+
+  useEffect(()=> {
+    localStorage.setItem('myMovie', JSON.stringify(myList))
+  }, [myList])
+
+  const handleAdd = (movie)=> {
+    // const existingList = JSON.parse(localStorage.getItem('myMovie')) || []
+    // const updatedList = [...existingList, movie]
+    // localStorage.setItem('myMovie', JSON.stringify(updatedList))
+    const isMovieInList = myList.some((film) => film.id === movie.id)
+    if(isMovieInList) {
+        const updatedList = myList.filter((film)=> film.id !== movie.id)
+        setMyList(updatedList)
+        toast.success(`${movie.name} removed from My List`)
+    } else {
+        const updatedList = [...myList, movie]
+        setMyList(updatedList)
+        toast.success(`${movie.name} added to My List`)
+    }
+  }
 
   const showVideo = () => {
     navigate(`/tv/${id}/videos`);
@@ -57,8 +83,18 @@ const TvDetail = () => {
           <div className="absolute inset-0 bg-black/60 rounded-lg"></div>{" "}
           <div className="relative text-white space-y-4 py-20 sm:py-10 md:py-20 px-6 bg-gray-900/80 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold flex items-center">
-                {clickedTv.title}
-                <IoIosAddCircleOutline className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors" />
+                {clickedTv.name}
+                {myList.some((film)=> film.id === clickedTv.id) ? (
+                    <IoIosRemoveCircleOutline
+                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        onClick={()=> handleAdd(clickedTv)}
+                    />
+                ) : (
+                    <IoIosAddCircleOutline 
+                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        onClick={()=> handleAdd(clickedTv)}
+                    />
+                )}
             </h2>
             <p className="text-lg">
               <span className="font-semibold">Rating: </span>
