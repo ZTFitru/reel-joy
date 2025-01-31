@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IoClose, IoMenu } from "react-icons/io5";
+import { IoIosAddCircleOutline } from "react-icons/io";
+
 
 const MovieList = ({ genres }) => {
     const [movies, setMovies] = useState([]);
@@ -94,6 +96,7 @@ const MovieList = ({ genres }) => {
                 />
                 <h3 className="text-lg font-semibold">{movie.title}</h3>
                 <p className="text-yellow-400">⭐ {movie.vote_average.toFixed(1)}</p>
+                <IoIosAddCircleOutline />
               </Link>
             ))
           ) : (

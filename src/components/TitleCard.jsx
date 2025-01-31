@@ -134,7 +134,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           <button
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-200 to-indigo-600 text-white p-2 rounded-full shadow-lg z-10 text-4xl"
             onClick={() => {
-              document.getElementById("scroll-container").scrollLeft -= 300;
+              document.getElementById("now-playing-scroll").scrollLeft -= 300;
             }}
           >
             {/* &#8592; */}
@@ -142,7 +142,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           </button>
 
           <div
-            id="scroll-container"
+            id="now-playing-scroll"
             className="flex overflow-x-hidden space-x-4 mt-4 pb-4 scrollbar-none"
           >
             {filteredMovies.length > 0 ? (
@@ -150,7 +150,8 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                  onMovieClick={setHighLightedMovie}
+                //   onMovieClick={setHighLightedMovie}
+                onMovieClick={handleMovieClick}
                 />
               ))
             ) : (
@@ -164,7 +165,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           <button
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-200 text-white p-2 rounded-full shadow-lg z-10 text-4xl"
             onClick={() => {
-              document.getElementById("scroll-container").scrollLeft += 300;
+              document.getElementById("now-playing-scroll").scrollLeft += 300;
             }}
           >
             {/* &#8594; */}
@@ -184,7 +185,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           <button
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-200 to-indigo-600 text-white p-2 rounded-full shadow-lg z-10 text-4xl"
             onClick={() => {
-              document.getElementById("scroll-container").scrollLeft -= 300;
+              document.getElementById("top-rated-scroll").scrollLeft -= 300;
             }}
           >
             {/* &#8592; */}
@@ -192,7 +193,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           </button>
 
           <div
-            id="scroll-container"
+            id="top-rated-scroll"
             className="flex overflow-x-hidden space-x-4 mt-4 pb-4 scrollbar-none"
           >
             {popularFiltered.length > 0 ? (
@@ -200,7 +201,8 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
                 <MovieCard
                   movie={movie}
                   key={movie.id}
-                  onMovieClick={setHighLightedMovie}
+                //   onMovieClick={setHighLightedMovie}
+                onMovieClick={handleMovieClick}
                 />
               ))
             ) : (
@@ -214,7 +216,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           <button
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-200 text-white p-2 rounded-full shadow-lg z-10 text-4xl"
             onClick={() => {
-              document.getElementById("scroll-container").scrollLeft += 300;
+              document.getElementById("top-rated-scroll").scrollLeft += 300;
             }}
           >
             {/* &#8594; */}
@@ -234,7 +236,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           <button
             className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-200 to-indigo-600 text-white p-2 rounded-full shadow-lg z-10 text-4xl"
             onClick={() => {
-              document.getElementById("scroll-container").scrollLeft -= 300;
+              document.getElementById("upcoming-scroll").scrollLeft -= 300;
             }}
           >
             {/* &#8592; */}
@@ -242,7 +244,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           </button>
 
           <div
-            id="scroll-container"
+            id="upcoming-scroll"
             className="flex overflow-x-hidden space-x-4 mt-4 pb-4 scrollbar-none"
           >
             {upcomingFiltered.length > 0 ? (
@@ -270,7 +272,7 @@ const TitleCard = ({ error, apiMovies, popularMovies, upcomingMovies }) => {
           <button
             className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-blue-600 to-indigo-200 text-white p-2 rounded-full shadow-lg z-10 text-4xl"
             onClick={() => {
-              document.getElementById("scroll-container").scrollLeft += 300;
+              document.getElementById("upcoming-scroll").scrollLeft += 300;
             }}
           >
             {/* &#8594; */}

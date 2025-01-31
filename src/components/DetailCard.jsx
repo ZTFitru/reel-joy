@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 const DetailCard = () => {
   const { id } = useParams();
@@ -56,6 +57,7 @@ const DetailCard = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-black/60 rounded-lg"></div>
           <div className="relative text-white space-y-4 py-20 sm:py-10 md:py-20 px-6 bg-gray-900/80 rounded-lg shadow-lg">
+            <IoIosAddCircleOutline />
             <h1 className="text-3xl font-bold">{clickedMovie.title}</h1>
             <p className="text-lg">
               <span className="font-semibold">Rating: </span>
