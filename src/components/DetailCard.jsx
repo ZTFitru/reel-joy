@@ -95,12 +95,12 @@ const DetailCard = () => {
                 {clickedMovie.title}
                 {myList.some((film)=> film.id === clickedMovie.id) ? (
                     <IoIosRemoveCircleOutline
-                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        className="ml-2 text-2xl cursor-pointer text-red-400 hover:text-blue-400 transition-colors"
                         onClick={()=> handleAdd(clickedMovie)}
                     />
                 ) : (
                     <IoIosAddCircleOutline 
-                        className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors"
+                        className="ml-2 text-2xl cursor-pointer text-green-400 hover:text-blue-400 transition-colors"
                         onClick={()=> handleAdd(clickedMovie)}
                     />
                 )}
