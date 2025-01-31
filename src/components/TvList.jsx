@@ -33,7 +33,8 @@ const TvList = ({ tvShow }) => {
             <IoMenu />
           </button>
         </div>
-        <div className="hidden md:flex gap-4 px-2 overflow-x-auto scrollbar-hide">
+        {/* <div className="hidden md:flex gap-4 px-2 overflow-x-auto scrollbar-hide"> */}
+        <div className="hidden md:flex gap-4 px-2 overflow-x-auto scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-600 scrollbar-rounded-lg">
           {tvShow.map((genre) => (
             <div
               key={genre.id}
