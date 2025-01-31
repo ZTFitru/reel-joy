@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { IoIosAddCircleOutline } from "react-icons/io";
 
 const TvDetail = () => {
   const { id } = useParams();
@@ -55,7 +56,10 @@ const TvDetail = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-black/60 rounded-lg"></div>{" "}
           <div className="relative text-white space-y-4 py-20 sm:py-10 md:py-20 px-6 bg-gray-900/80 rounded-lg shadow-lg">
-            <h2 className="text-3xl font-bold">{clickedTv.title}</h2>
+            <h2 className="text-3xl font-bold flex items-center">
+                {clickedTv.title}
+                <IoIosAddCircleOutline className="ml-2 text-2xl cursor-pointer hover:text-blue-400 transition-colors" />
+            </h2>
             <p className="text-lg">
               <span className="font-semibold">Rating: </span>
               {clickedTv.vote_average.toFixed(1)} ⭐️
